@@ -1,0 +1,517 @@
+/* --- Popup Card Redesign --- */
+.attachment-popup-card, .meeting-link-popup-card {
+    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18) !important;
+    border-radius: 16px !important;
+    background: #fff !important;
+    padding: 0 0 18px 0 !important;
+    min-width: 340px;
+    max-width: 400px;
+    border: none !important;
+}
+.popup-header {
+    border-radius: 16px 16px 0 0;
+    background: #f8fafc;
+    border-bottom: 1px solid #e0e0e0;
+}
+.popup-header .material-icons {
+    color: #2196F3;
+    font-size: 2rem;
+}
+.attachment-popup-card .custom-file-label,
+.attachment-popup-card .custom-file-input {
+    font-size: 0.98rem;
+}
+.attachment-popup-card .show-attach-file {
+    font-size: 0.98rem;
+    color: #444;
+}
+.attachment-popup-card .btn-primary {
+    background: #2196F3;
+    border: none;
+}
+.attachment-popup-card .btn-primary:hover {
+    background: #1976D2;
+}
+.meeting-link-popup-card .btn-outline-primary {
+    color: #2196F3;
+    border-color: #2196F3;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.98rem;
+    padding: 6px 18px;
+}
+.meeting-link-popup-card .btn-outline-primary:hover {
+    background: #e3f2fd;
+    color: #2196F3;
+}
+.meeting-link-popup-card .btn-outline-primary:active, .meeting-link-popup-card .btn-outline-primary:focus {
+    background: #bbdefb;
+    color: #1976D2;
+    border-color: #1976D2;
+}
+.meeting-link-popup-card .link-conf {
+    font-size: 0.95rem;
+}
+/* --- End Popup Card Redesign --- */
+
+body{
+    font-family: "Alan Sans", sans-serif !important;
+    font-size: large;
+}
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.logo{
+    height: 43px;
+}
+
+.navbar-brand{
+    font-size: 27px;
+    padding-left: 10px;
+    font-family: "Alan Sans", sans-serif;
+}
+
+.nav-item a{
+    color: gray !important;
+    font-size:16px ;
+    padding: 0 10px;
+    font-weight: 600;
+}
+
+.display-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+li.nav-item{
+    padding: 0 10px;
+}
+
+.signin-image{
+    height: 390px;
+    border: 25px solid white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px gray;
+}
+
+textarea:focus,input:focus{
+    outline: none !important;
+    
+    
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+.jumbotron{
+    background-color: white;
+}
+
+/* index page css */
+
+/* --- Let'sConnect Meet Room Redesign --- */
+.meet-main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Changed from min-height to height */
+    background: #f8fafc;
+
+}
+.meet-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 32px;
+    font-family: "Alan Sans", sans-serif;
+    z-index: 10;
+    flex-shrink: 0; /* Prevent header from shrinking */
+}
+.meet-logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.meet-header-actions {
+    display: flex;
+    gap: 8px;
+}
+.meet-header-btn {
+    background: none;
+    border: none;
+    color: #444;
+    font-size: 1.5rem;
+    padding: 6px 10px;
+    border-radius: 50%;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+.meet-header-btn:hover {
+    background: #e3f2fd;
+}
+.meet-content {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0; /* Important fix for flexbox overflow */
+}
+.meet-video-area {
+    flex: 1 1 0;
+    display: flex;
+    background: #181c20;
+    min-height: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+#meetingContainer {
+    width: 100%;
+    height: 100%;
+}
+
+/* --- DYNAMIC GRID LAYOUT --- */
+.video-grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s ease-in-out;
+}
+
+.video-grid.grid-1 { grid-template-columns: 1fr; grid-template-rows: 1fr; }
+.video-grid.grid-2 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
+.video-grid.grid-4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.video-grid.grid-6 { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.video-grid.grid-9 { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; }
+.video-grid.grid-gt9 { grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr 1fr; }
+
+
+/* FIX: Simplified the userbox layout to prevent overflow */
+.userbox {
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #3d4145;
+    box-sizing: border-box;
+}
+
+.userbox > div {
+    width: 100%;
+    height: 100%;
+}
+
+.userbox h2 {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 9999px;
+    font-size: 0.8rem !important;
+    font-weight: 500;
+    z-index: 10;
+}
+.userbox video {
+    width: 100%;
+    height: 100%;
+    background: #23272b;
+    object-fit: cover;
+    border: none;
+    border-radius: 0;
+}
+/* Mirror camera video for a more natural self-view, but not for screen sharing */
+.userbox.camera-on video {
+    transform: scaleX(-1);
+}
+
+.userbox .user-mic-icon {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 4px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    z-index: 10;
+}
+/* --- END DYNAMIC GRID LAYOUT --- */
+
+
+.meet-sidebar {
+    width: 340px;
+    background: #fff;
+    border-left: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+}
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px 10px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+.sidebar-title {
+    color: #2196F3;
+}
+.sidebar-close {
+    cursor: pointer;
+    color: #888;
+    font-size: 1.5rem;
+}
+.sidebar-tabs {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+}
+.sidebar-tab {
+    flex: 1 1 0;
+    background: none;
+    border: none;
+    padding: 12px 0;
+    font-size: 1rem;
+    color: #444;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: border 0.2s, color 0.2s;
+}
+.sidebar-tab.active, .sidebar-tab:hover {
+    color: #2196F3;
+    border-bottom: 2px solid #2196F3;
+}
+.sidebar-content {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 18px 20px;
+}
+.participant-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.participant {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.participant-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #2196F333;
+}
+.participant-name {
+    font-weight: 500;
+    color: #222;
+}
+.sidebar-chat {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.chat-messages {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    margin-bottom: 12px;
+    min-height: 120px;
+}
+.chat-input-row {
+    display: flex;
+    gap: 8px;
+}
+.chat-input {
+    flex: 1 1 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    outline: none;
+}
+.chat-send {
+    background: #2196F3;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.chat-send:hover {
+    background: #1976D2;
+}
+.meet-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-top: 1px solid #e0e0e0;
+    padding: 0 32px;
+    height: 72px;
+    z-index: 10;
+    flex-shrink: 0; /* Prevent footer from shrinking */
+}
+.controls-left, .controls-center, .controls-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.meet-control-btn {
+    background: #f0f0f0;
+    border: none;
+    color: #222;
+    font-size: 1.7rem;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 4px;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+.meet-control-btn:hover {
+    background: #e3f2fd;
+    color: #2196F3;
+}
+.meet-control-btn.end-call {
+    background: #ff5252;
+    color: #fff;
+    font-size: 2rem;
+    border: none;
+}
+.meet-control-btn.end-call:hover {
+    background: #d32f2f;
+}
+/* --- End Let'sConnect Meet Room Redesign --- */
+
+.g-top-left{
+    position: absolute;
+    right: 0;
+    height: 8vh;
+    top: 0;
+    border-bottom-left-radius: 10px;
+}
+.top-left-participant-wrap{
+    position: relative;
+
+}
+.cursor-pointer{
+    cursor: pointer;
+    padding: 5px;
+}
+.cursor-pointer:hover{
+    cursor: pointer;
+    padding: 5px;
+    background-color:rgb(226,225,225) ;
+    border-radius: 5px;
+}
+.top-left-participant-count{
+    position: absolute ;
+    top: -2px;
+    right: -3px;
+    font-size: 15px;
+}
+
+.g-bottom{
+    /* margin: 0 -10px !important; */
+    padding: 0 20px;
+    box-shadow:0 0 5px black ;
+    z-index: 2;
+}
+
+.bottom-left{
+    position: relative;
+    padding: 5px;
+}
+
+.action-icon-style{
+    font-size: 8px !important;
+    height: 40px;
+    width: 40px;
+    border: 1px solid lightgray;
+    border-radius: 50%;
+}
+
+.end-call-wrap{
+    -ms-transform: rotate(135deg);
+    transform: rotate(135deg);
+}
+
+.top-remote-video-show-wrap{
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.active{
+    background-color: #00808047;
+    border-radius: 5px;
+}
+
+.top-box{
+    background-color:rgb(14 6 6);
+    position: fixed;
+    width: 30%;
+    height: 30%;
+    top: 20.5%;
+    left: 35.5%;
+    display: block;
+    box-shadow: 0 0 5px rgb(0, 0, 0);
+    border-radius: 10px;
+    z-index: 999;
+    columns: white;
+    /* border: 2px solid rgb(14, 14, 14); */
+}
+.bottom-left{
+    position: relative;
+    padding: 5px;
+}
+.g-details{
+    position: absolute;
+    width: 30vw;
+    background-color: white;
+    margin-top: -135px;
+    counter-reset: black;
+    border-radius: 5px;
+    padding: 5px;
+
+}
+.g-details-heading-show{
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+.recording-show{
+    position: absolute;
+    margin-bottom: 132px;
+    /* width: 180px; */
+    display: none;
+}
+
+.new-meeting {
+    background-color: #2196F3 !important;
+    color: white !important;
+}
+.new-meeting:hover, .new-meeting:focus {
+    background-color: #1976D2 !important; /* darker blue */
+    box-shadow: none !important;
+    color: white !important;
+}

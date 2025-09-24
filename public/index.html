@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="public/Assets/images/favicon96.png">
+    <title>EchoMeet</title>
+    <!-- Using the provided bootstrap.min.css -->
+    <link rel="stylesheet" href="public/Assets/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <!-- Using the provided style.css -->
+    <link rel="stylesheet" href="public/Assets/css/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <!-- Using jQuery from a CDN to resolve loading issues -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Statically load app.js and initialize it only when needed -->
+    <script src="public/Assets/js/app.js"></script>
+    <script>
+      $(function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        var meeting_id = urlParams.get("meetingID");
+        var user_id = window.prompt("Enter your name");
+
+        if (!user_id || !meeting_id) {
+          alert("User ID or meeting ID is missing");
+          window.location.href = window.location.origin + "/action.html";
+          return;
+        }
+        
+        $("#meetingContainer").show();
+        MyApp._init(user_id, meeting_id);
+      });
+    </script>
+  </head>
+  <body>
+    <main class="meet-main">
+      <header class="meet-header">
+        <div class="meet-logo">
+          <img src="public/Assets/images/logo100.png" style="width: 32px; height: 32px; margin-right: 8px;" /><span style="color: #2196F3;">Echo</span><span style="color: #ff9800;">Meet</span>
+        </div>
+        <div class="meet-header-actions">
+          <button class="meet-header-btn" title="People"><span class="material-icons">people</span></button>
+          <button class="meet-header-btn" title="Chat"><span class="material-icons">message</span></button>
+        </div>
+      </header>
+      <div class="meet-content">
+        <div class="meet-video-area">
+          <div id="meetingContainer" style="display: none;">
+            <!-- The video-grid will now be controlled by new CSS and JS for dynamic layouts -->
+            <div class="video-grid" id="divUsers">
+              <div id="me" class="userbox flex-column">
+                <!-- The h2 will be styled as a user ID badge -->
+                <span class="material-icons user-mic-icon">mic_off</span>
+                <h2 style="font-size: 14px"></h2>
+                <div>
+                  <video autoplay muted id="localVideoPlayer"></video>
+                </div>
+              </div>
+              <div id="otherTemplate" class="userbox flex-column" style="display: none">
+                <h2 style="font-size: 14px"></h2>
+                <span class="material-icons user-mic-icon">mic_off</span>
+                <div>
+                  <video autoplay muted></video>
+                  <audio autoplay controls style="display: none"></audio>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="meet-sidebar" style="display: none;">
+          <div class="sidebar-header">
+            <span class="sidebar-title">Meeting Details</span>
+            <span class="material-icons sidebar-close">clear</span>
+          </div>
+          <div class="sidebar-tabs">
+            <button class="sidebar-tab active"><span class="material-icons">people</span> People</button>
+            <button class="sidebar-tab"><span class="material-icons">message</span> Chat</button>
+          </div>
+          <div class="sidebar-content">
+            <div class="sidebar-people" style="display: block;">
+              <div class="participant-list">
+                <div class="participant">
+                  <img src="public/Assets/images/other.jpg" alt="" class="participant-img">
+                  <span class="participant-name">You</span>
+                </div>
+              </div>
+            </div>
+            <div class="sidebar-chat" style="display: none;">
+              <div class="chat-messages" id="messages"></div>
+              <div class="chat-input-row">
+                <input type="text" id="msgbox" class="chat-input" placeholder="Send a message to everyone" />
+                <button id="btnsend" class="chat-send"><span class="material-icons">send</span></button>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+      <footer class="meet-controls">
+        <div class="controls-left">
+          <button class="meet-control-btn" title="Meeting details"><span class="material-icons">info</span></button>
+        </div>
+        <div class="controls-center">
+          <button class="meet-control-btn" id="micMuteUnmute" title="Mute/Unmute"><span class="material-icons">mic_off</span></button>
+          <button class="meet-control-btn end-call" title="Leave call"><span class="material-icons">call</span></button>
+          <button class="meet-control-btn" id="videoCamOnOff" title="Camera on/off"><span class="material-icons">videocam_off</span></button>
+        </div>
+        <div class="controls-right">
+          <button class="meet-control-btn" id="ScreenShareOnOff" title=""><span class="material-icons">present_to_all</span></button>
+          <button class="meet-control-btn" id="attachmentBtn" title="Attachments"><span class="material-icons">attach_file</span></button>
+        </div>
+      </footer>
+    <!-- Attachment popup (bottom right, for attachments only) -->
+    <div class="g-details attachment-popup-card" id="attachmentPopup" style="display:none;position:fixed;bottom:90px;right:40px;min-width:340px;max-width:400px;z-index:1000;background:#fff;box-shadow:0 4px 24px 0 rgba(0,0,0,0.18);border-radius:16px;padding:0 0 18px 0;">
+      <div class="popup-header d-flex align-items-center px-4 pt-3 pb-2">
+        <span class="material-icons mr-2">attach_file</span>
+        <span style="font-weight:600;font-size:1.1rem;">Attachments</span>
+      </div>
+      <div class="px-4 pt-3">
+        <div class="show-attach-file mb-3"></div>
+        <div class="upload-attach-file">
+          <form enctype="multipart/form-data" ref="uploadForm" id="uploadForm" class="d-flex align-items-center gap-2" style="justify-content: space-between;">
+            <div class="custom-file flex-grow-1">
+              <input type="file" class="custom-file-input" id="customFile" name="imagefile">
+              <label for="customFile" class="custom-file-label">Choose File</label>
+            </div>
+            <button class="btn btn-primary btn-sm share-attach ml-2" style="padding: 8px 24px;">Share</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Meeting details popup (bottom left, for joining info only) -->
+    <div class="g-details meeting-link-popup-card" id="meetingDetailsPopup" style="display:none;position:fixed;bottom:90px;left:40px;min-width:340px;max-width:400px;z-index:1000;background:#fff;box-shadow:0 4px 24px 0 rgba(0,0,0,0.18);border-radius:16px;padding:0 0 18px 0;">
+      <div class="popup-header d-flex align-items-center px-4 pt-3 pb-2">
+        <span class="material-icons mr-2">info</span>
+        <span style="font-weight:600;font-size:1.1rem;">Meeting Details</span>
+      </div>
+      <div class="px-4 pt-3">
+        <div style="font-weight: 600;color: #555;">Joining Info</div>
+        <div class="meeting_url mb-2" style="padding: 7px 0 0 0;font-size:1.05rem;word-break:break-all;color:#222;" data-toggle="tooltip" data-placement="top"></div>
+        <button class="btn btn-outline-primary btn-sm copy_info d-flex align-items-center" style="gap:6px;">
+          <span class="material-icons" style="font-size: 18px;">content_copy</span>
+          <span>Copy Joining Info</span>
+          <span class="link-conf font-weight-bold ml-2" style="display: none; background-color: #e3f2fd; color: #1976D2; border-radius:5px;padding:2px 8px;">Link Copied</span>
+        </button>
+      </div>
+    </div>
+    </main>
+  </body>
+</html>
