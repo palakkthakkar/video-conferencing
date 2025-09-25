@@ -2,7 +2,11 @@
 
 This project is a video conferencing application that enables users to have video calls using the Socket.IO and WebRTC APIs. It provides various features to enhance the meeting experience, including creating chat rooms, muting/unmuting microphones, turning video on/off, leaving the meeting, meeting recording, displaying usernames, messaging within the meeting, screen sharing, and a file sharing system.
 
+<img width="1919" height="878" alt="Screenshot 2025-09-25 083353" src="https://github.com/user-attachments/assets/d2ff70e5-bb3f-4291-8c08-3af5808c2475" />
+
 ## Features
+
+<img width="1914" height="885" alt="image" src="https://github.com/user-attachments/assets/9c53db14-a51b-4f0a-8c98-dee93595aedb" />
 
 1. **Creating Chat Rooms:** Users can create chat rooms to host video conferences. Each chat room has a unique identifier and allows multiple participants to join.
 
